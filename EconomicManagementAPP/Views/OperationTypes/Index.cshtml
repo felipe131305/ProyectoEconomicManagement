@@ -1,0 +1,50 @@
+﻿@model IEnumerable<OperationTypes>
+
+
+
+@{
+    ViewData["Title"] = "Operation Types";
+}
+
+
+
+<h1 class="title">Operation Types</h1>
+
+<a asp-action="Create" class="btn btn-primary mb-3">Create Operation Types</a>
+
+<table class="table table-success table-striped">
+    <thead>
+        <tr>
+            <th>Description</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody id="reordenable">
+        @foreach (var operationTypes in Model)
+        {
+            <tr>
+
+                <td>
+                    @operationTypes.Description
+                </td>
+                <td>
+                    <input type="hidden" value="@operationTypes.Id" class="ids" />
+                    <a class="btn btn-primary" asp-action="Modify" asp-route-id="@operationTypes.Id">Modify</a>
+                    <a class="btn btn-danger" asp-action="Delete" asp-route-id="@operationTypes.Id">Delete</a>
+                </td>
+
+                <td>
+                    <a class="btn btn-outline-primary" asp-controller="Categories" asp-action="Create" asp-route-operationTypeId="@operationTypes.Id">Create categories</a>
+                </td>
+                 <td>
+                    <a class="btn btn-outline-primary" asp-controller="Categories" asp-action="Index" asp-route-operationTypeId="@operationTypes.Id">See categories</a>
+                </td>
+
+            </tr>
+        }
+    </tbody>
+</table>
+
+@section Scripts {
+<partial name="_ValidationScriptsPartial" />
+}

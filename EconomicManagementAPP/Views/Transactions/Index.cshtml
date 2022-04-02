@@ -1,0 +1,111 @@
+﻿@model IEnumerable<Transactions>
+
+@{
+    ViewData["Title"] = "Transactions";
+}
+
+@{
+    string auxMessage = "No description";
+}
+
+<h1>Transactions</h1>
+
+<div class="accordion accordion-flush" id="accordionFlushExample">
+    @foreach (var transaction in Model)
+    {
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="flush-heading@(transaction.Id)">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse@(transaction.Id)" aria-expanded="false" aria-controls="flush-collapse@(transaction.Id)">
+                    @if (@transaction.Description is not null)
+                    {
+                        @transaction.Description
+                    }else{
+                        @auxMessage
+                    }
+                </button>
+            </h2>
+            <div id="flush-collapse@(transaction.Id)" class="accordion-collapse collapse" aria-labelledby="flush-heading@(transaction.Id)" data-bs-parent="#accordionFlushExample">
+                <div class="accordion-body">
+                    <table class="table">
+                        <thead>
+
+                            <tr>
+                                <th>Date</th>
+                                <th>Account</th>
+                                <th>Category</th>
+                                <th>Operation description</th>
+                                <th>Total</th>
+                            </tr>
+
+                        </thead>
+                        <tbody id="reordenable">
+                            <tr>
+                                <td>@transaction.TransactionDate</td>
+                                <td>@transaction.AccountName</td>
+                                <td>@transaction.CategoryName</td>
+                                <td>
+                                    <i>@transaction.OperationTypeDescription</i>
+                                </td>
+                                <td>
+                                    @if(transaction.OperationTypeDescription.Equals("Income")){
+                                        <span class="text-success">$@transaction.Total</span>
+                                    }else if(transaction.OperationTypeDescription.Equals("Expenditure")){
+                                        <span class="text-danger">$@transaction.Total</span>
+                                    }
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+
+
+                    @* <a class="btn btnNewAccount" asp-controller="Accounts" asp-action="Create" asp-route-id="@accountTypes.Id">New account</a>
+
+                        <table class="table">
+                        <thead>
+
+                        <tr>
+                        <th >Actions</th>
+                        <th>Name</th>
+                        <th>Balance</th>
+                        <th>Action</th>
+                        </tr>
+
+                        </thead>
+
+                        <tbody id="reordenable">
+                        @foreach (var accounts in accountAndAccountTypes.Accounts)
+                        {
+                        @if (accounts.AccountTypeId == accountTypes.Id)
+                        {
+                        <tr>
+                        <td>
+                        <input type="hidden" value="1" class="ids" />
+                        <a class="btn btn-primary" asp-controller="Accounts" asp-action="AddFounds" asp-route-atId="@accountTypes.Id" asp-route-id="@accounts.Id">Add Founds</a>
+                        <a class="btn btn-primary" asp-controller="Accounts" asp-action="Modify" asp-route-id="@accounts.Id">Modify</a>
+                        <a class="btn btn-danger" asp-controller="Accounts" asp-action="Delete" asp-route-id="@accounts.Id">Delete</a>
+                        </td>
+                        <td>
+                        @accounts.Name
+                        </td>
+                        <td>
+                        $@accounts.Balance
+                        </td>
+                        <td>
+                        <a class="btn btn-outline-primary" asp-controller="Transactions" asp-action="Create" asp-route-id="@accounts.Id">New transaction</a>
+                        </td>
+                        </tr>
+                        }
+                        }
+                        </tbody>
+                        </table>*@
+
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+@section Scripts {
+<partial name="_ValidationScriptsPartial" />
+}

@@ -1,0 +1,18 @@
+﻿.btnNewAccount {
+    display: flex;
+    flex-direction: row;
+    margin: 0px 0px 0px 0px;
+    color: white;
+    font-size: 20px;
+}
+
+.btnbutton {
+    margin: 0px 290px 0px 0px;
+    min-width: 100px;
+    max-width: 400px;
+    text-align: center;
+}
+
+/*.navbar-collapse{
+    max-width: max-content;
+}*/

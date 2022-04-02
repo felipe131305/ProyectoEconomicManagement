@@ -1,0 +1,32 @@
+﻿@model Accounts
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    ViewData["Title"] = "Add founds";
+}
+
+<h1 class="text-center">Add founds in @Model.Name</h1>
+
+<form class="formCenter" asp-action="AddFounds">
+    <div class="card" style="width: 18rem;">
+      <div class="card-body">
+        <h5 class="card-title">@Model.Name</h5>
+        <h6 class="card-subtitle mb-2 text-muted">Current balance: <strong>$@Model.Balance</strong></h6>
+        <h6 class="card-subtitle mb-2 text-muted">@Model.Description</h6>
+        <div class="mb-3">
+            <label asp-for="Balance" class="form-label"></label>
+           @*<input type="number" asp-for="Balance" maxlength="10" id="documento" placeholder="Solo caracteres Numericos"   class="form-control"
+                  required autocomplete="off" onkeypress="return (event.charCode >= 48 && event.charCode <= 57 || event.charCode == 44)"  />*@
+                  <input type="text" autofocus asp-for="Money" class="form-control" />
+            <span asp-validation-for="Balance" class="text-danger"> </span>
+        </div>
+        <a class="btn btn-danger" asp-controller="Home" asp-action="Index">Cancel</a>
+        <a class="btn btn-success">Add founds</a>
+      </div>
+    </div>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial"/>
+}
