@@ -1,17 +1,27 @@
 ﻿.btnNewAccount {
     display: flex;
+    justify-content: space-between;
     flex-direction: row;
     margin: 0px 0px 0px 0px;
     color: white;
     font-size: 20px;
 }
 
-.btnbutton {
+.myaccordion {
+    background: rgb(249,249,249);
+    background: linear-gradient(90deg, rgba(249,249,249,1) 16%, rgba(189,189,189,1) 47%, rgba(255,255,255,1) 79%, rgba(255,255,255,1) 100%);
+}
+    body {
+    background: rgb(191,191,255);
+    background: linear-gradient(90deg, rgba(191,191,255,1) 0%, rgba(113,196,237,1) 47%, rgba(101,189,242,1) 52%, rgba(255,255,255,1) 100%);
+}
+/*.btnbutton {
     margin: 0px 290px 0px 0px;
     min-width: 100px;
     max-width: 400px;
     text-align: center;
 }
+    */
 
 /*.navbar-collapse{
     max-width: max-content;

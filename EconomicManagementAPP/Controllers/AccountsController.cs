@@ -134,7 +134,6 @@ namespace EconomicManagementAPP.Controllers
                 return RedirectToAction("NotFound", "Home");
             }
             account.AccountTypeId = atId;
-            Console.WriteLine("lleva al post"+account.AccountTypeId);
             return View(account);
         }
         [HttpPost]
@@ -144,9 +143,9 @@ namespace EconomicManagementAPP.Controllers
             {
                 return View(accounts);
             }
-            Console.WriteLine("este es el id de cuenta: " + accounts.Id + "este es el id tipos" + accounts.AccountTypeId);
+            
             var account = await repositorieAccounts.GetAccountById(accounts.Id);
-            Console.WriteLine("este es el id de cuenta: "+account.Id+ "este es el id tipo" + account.AccountTypeId);
+            
             if (account is null)
             {
                 return RedirectToAction("NotFound", "Home");

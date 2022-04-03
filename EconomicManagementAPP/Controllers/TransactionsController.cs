@@ -28,7 +28,7 @@ namespace EconomicManagementAPP.Controllers
             {
                 return RedirectToAction("Login", "Users");
             }
-            var transactions = await repositorieTransactions.GetTransactions(id);
+            var transactions = await repositorieTransactions.GetTransactions(id,UsersController.valorSesion.Id);
             return View(transactions);
         }
 
@@ -43,18 +43,6 @@ namespace EconomicManagementAPP.Controllers
             {
                 return RedirectToAction("NotFound", "Home");
             }
-            //ViewResult result = (ViewResult)TempData["User"];
-            //result.TempData = TempData["User"];
-            //Users user = (Users)TempData["User"];
-            //string valor = TempData["Id"].ToString();
-            //int valor2 = Int16.Parse(valor);
-
-            //object user = (object)TempData["IdAutentication"];
-
-            //Console.WriteLine("hola sol el id "+user);
-
-
-            //Users users = UsersController.valorSesion;
         
 
           
@@ -66,8 +54,7 @@ namespace EconomicManagementAPP.Controllers
                 AccountName = accounts.Name,
                 CategoryList = await repositorieCategories.GetCategories(userId)
             };
-            //transactions.AccountId = id;
-            //Console.WriteLine("hola " + transactions.AccountId);
+
             return View(transactions);
         }
         [HttpPost]
@@ -75,10 +62,10 @@ namespace EconomicManagementAPP.Controllers
         {
             if (!ModelState.IsValid)
             {
+                transactions.CategoryList = await repositorieCategories.GetCategories(UsersController.valorSesion.Id);
                 return View(transactions);
             }
-            Console.WriteLine("hola "+transactions.CategoryId);
-            //Console.WriteLine("hola soy lista de categorias "+ transactions.CategoryList.ToList());
+
             var accounts = await repositorieAccounts.GetAccountById(transactions.AccountId);
 
             if (accounts is null)
@@ -111,9 +98,6 @@ namespace EconomicManagementAPP.Controllers
 
                 return View(transactions);
             }
-            //Console.WriteLine(Id);
-            // Redireccionamos a la lista
-            //return RedirectToAction("Index");
             return RedirectToAction("Index", "Transactions", new { id = transactions.AccountId});
         }
 

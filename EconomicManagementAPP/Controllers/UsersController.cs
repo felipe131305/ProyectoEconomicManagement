@@ -38,7 +38,7 @@ namespace EconomicManagementAPP.Controllers
         [HttpPost]
         public async Task<IActionResult> Login(LoginViewModel loginViewModel)
         {
-            Console.WriteLine("entro");
+
             if (!ModelState.IsValid)
             {
                 return View(loginViewModel);
@@ -89,9 +89,9 @@ namespace EconomicManagementAPP.Controllers
                 return View(users);
             }
             users.DbStatus = true;
-            //Console.WriteLine("soy el id de users " + users.Id);
+
             await repositorieUsers.Create(users);
-            //Console.WriteLine("soy el id de users "+users.Id);
+
             if(users.Id.ToString() is null)
             {
                 ModelState.AddModelError(nameof(users.Email),
@@ -99,16 +99,9 @@ namespace EconomicManagementAPP.Controllers
 
                 return View(users);
             }
-            //TempData["IdAutentication"] = users.Id;
-            //session["idUser"] = users.Id;
-            valorSesion = users;
-            //if (string.IsNullOrEmpty(HttpContext.Session.GetString(SessionKeyEmail)))
-            //{
-            //    HttpContext.Session.SetInt32(SessionKeyId, users.Id);
-            //    HttpContext.Session.SetString(SessionKeyEmail, users.Email);
-            //}
 
-            //await signInManager.SignInAsync(users, isPersistent: true);
+            valorSesion = users;
+
             return RedirectToAction("Index", "Home");
         }
 

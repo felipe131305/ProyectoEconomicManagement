@@ -33,10 +33,6 @@ namespace EconomicManagementAPP.Controllers
             {
                 return RedirectToAction("NotFound", "Home");
             }
-            //Categories category = new();
-            //category.OperationTypeId = operation.Id;
-            ////Console.WriteLine(category.OperationTypeId);
-            //var categories = await repositorieCategories.GetCategories(userId);
             return View(categories);
         }
 
@@ -119,12 +115,23 @@ namespace EconomicManagementAPP.Controllers
         public async Task<IActionResult> DeleteCategory(int id)
         {
             var userId = UsersController.valorSesion.Id;
+            
             var categorie = await repositorieCategories.GetCategorieByIds(id, userId);
 
+            var existingTrasactions = await repositorieCategories.ExistingTransactions(id);
             if (categorie is null)
             {
                 return RedirectToAction("NotFound", "Home");
             }
+
+
+            if (existingTrasactions == true) {
+
+                await repositorieCategories.DeleteModify(id);
+                return RedirectToAction("Index", "Categories");
+
+            }
+
            
             await repositorieCategories.Delete(id);
             return RedirectToAction("Index", "Categories");

@@ -28,4 +28,14 @@ body {
 
 .headerSpacer {
     flex: 1 1 auto;
+  
 }
+.StyleLettre {
+
+    font-family:cursive
+}
+.Styleheader {
+    background: rgb(191,191,255);
+    background: linear-gradient(90deg, rgba(191,191,255,1) 0%, rgba(113,196,237,1) 47%, rgba(101,189,242,1) 52%, rgba(255,255,255,1) 100%) !important;
+}
+

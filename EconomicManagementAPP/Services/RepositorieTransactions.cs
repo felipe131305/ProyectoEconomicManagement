@@ -11,7 +11,7 @@ public class RepositorieTransactions: IRepositorieTransactions
         connectionString = configuration.GetConnectionString("DefaultConnection");
     }
 
-    public async Task<IEnumerable<Transactions>> GetTransactions(int AccountId)
+    public async Task<IEnumerable<Transactions>> GetTransactions(int AccountId, int UserId)
     {
         using var connection = new SqlConnection(connectionString);
         return await connection.QueryAsync<Transactions>(@"SELECT TOP (10) t.Id, t.UserId, t.TransactionDate, t.Total, [ot].Description as OperationTypeDescription, t.Description, a.Name as AccountName, c.Name as 'CategoryName' 
@@ -19,8 +19,10 @@ public class RepositorieTransactions: IRepositorieTransactions
             JOIN Categories as c ON t.CategoryId=c.Id
             JOIN Accounts as a ON t.AccountId=a.Id 
             JOIN OperationTypes AS [ot] ON  [ot].Id=c.OperationTypeId
-            WHERE t.AccountId = @AccountId
-            ORDER BY 3 DESC", new { AccountId });
+            JOIN AccountTypes AS [at] ON [at].Id = a.AccountTypeId
+            JOIN Users AS u ON u.Id = t.UserId
+            WHERE t.AccountId = @AccountId AND u.Id = @UserId
+            ORDER BY 3 DESC", new { AccountId, UserId });
     }
 
         // funcion para crear una transaccion

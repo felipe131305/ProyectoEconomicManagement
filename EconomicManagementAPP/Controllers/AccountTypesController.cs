@@ -23,7 +23,7 @@ namespace EconomicManagementAPP.Controllers
                 return RedirectToAction("Login", "Users");
             }
             var userId = UsersController.valorSesion.Id;
-            Console.WriteLine("hola soy el user id " + userId);
+           
             var accountTypes = await repositorieAccountTypes.GetAccountsTypes(userId);
             return View(accountTypes);
         }

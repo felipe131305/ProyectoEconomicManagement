@@ -38,7 +38,7 @@ namespace EconomicManagementAPP.Validations
 
             if (!flag)
             {
-                return new ValidationResult("The password should have min one number ");
+                return new ValidationResult("The password should have min one number");
             }
             flag = false;
             Regex rxCapital = new Regex("[A-Z]");
