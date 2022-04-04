@@ -1,0 +1,218 @@
+USE [master]
+GO
+/****** Object:  Database [EconomicManagementDB]    Script Date: 3/04/2022 11:42:30 a. m. ******/
+CREATE DATABASE [EconomicManagementDB]
+ CONTAINMENT = NONE
+ ON  PRIMARY 
+( NAME = N'EconomicManagementDB', FILENAME = N'C:\data\EconomicManagementDB.mdf' , SIZE = 8192KB , MAXSIZE = UNLIMITED, FILEGROWTH = 65536KB )
+ LOG ON 
+( NAME = N'EconomicManagementDB_log', FILENAME = N'C:\log\EconomicManagementDB_log.ldf' , SIZE = 8192KB , MAXSIZE = 2048GB , FILEGROWTH = 65536KB )
+ WITH CATALOG_COLLATION = DATABASE_DEFAULT
+GO
+ALTER DATABASE [EconomicManagementDB] SET COMPATIBILITY_LEVEL = 150
+GO
+IF (1 = FULLTEXTSERVICEPROPERTY('IsFullTextInstalled'))
+begin
+EXEC [EconomicManagementDB].[dbo].[sp_fulltext_database] @action = 'enable'
+end
+GO
+ALTER DATABASE [EconomicManagementDB] SET ANSI_NULL_DEFAULT OFF 
+GO
+ALTER DATABASE [EconomicManagementDB] SET ANSI_NULLS OFF 
+GO
+ALTER DATABASE [EconomicManagementDB] SET ANSI_PADDING OFF 
+GO
+ALTER DATABASE [EconomicManagementDB] SET ANSI_WARNINGS OFF 
+GO
+ALTER DATABASE [EconomicManagementDB] SET ARITHABORT OFF 
+GO
+ALTER DATABASE [EconomicManagementDB] SET AUTO_CLOSE ON 
+GO
+ALTER DATABASE [EconomicManagementDB] SET AUTO_SHRINK OFF 
+GO
+ALTER DATABASE [EconomicManagementDB] SET AUTO_UPDATE_STATISTICS ON 
+GO
+ALTER DATABASE [EconomicManagementDB] SET CURSOR_CLOSE_ON_COMMIT OFF 
+GO
+ALTER DATABASE [EconomicManagementDB] SET CURSOR_DEFAULT  GLOBAL 
+GO
+ALTER DATABASE [EconomicManagementDB] SET CONCAT_NULL_YIELDS_NULL OFF 
+GO
+ALTER DATABASE [EconomicManagementDB] SET NUMERIC_ROUNDABORT OFF 
+GO
+ALTER DATABASE [EconomicManagementDB] SET QUOTED_IDENTIFIER OFF 
+GO
+ALTER DATABASE [EconomicManagementDB] SET RECURSIVE_TRIGGERS OFF 
+GO
+ALTER DATABASE [EconomicManagementDB] SET  ENABLE_BROKER 
+GO
+ALTER DATABASE [EconomicManagementDB] SET AUTO_UPDATE_STATISTICS_ASYNC OFF 
+GO
+ALTER DATABASE [EconomicManagementDB] SET DATE_CORRELATION_OPTIMIZATION OFF 
+GO
+ALTER DATABASE [EconomicManagementDB] SET TRUSTWORTHY OFF 
+GO
+ALTER DATABASE [EconomicManagementDB] SET ALLOW_SNAPSHOT_ISOLATION OFF 
+GO
+ALTER DATABASE [EconomicManagementDB] SET PARAMETERIZATION SIMPLE 
+GO
+ALTER DATABASE [EconomicManagementDB] SET READ_COMMITTED_SNAPSHOT OFF 
+GO
+ALTER DATABASE [EconomicManagementDB] SET HONOR_BROKER_PRIORITY OFF 
+GO
+ALTER DATABASE [EconomicManagementDB] SET RECOVERY SIMPLE 
+GO
+ALTER DATABASE [EconomicManagementDB] SET  MULTI_USER 
+GO
+ALTER DATABASE [EconomicManagementDB] SET PAGE_VERIFY CHECKSUM  
+GO
+ALTER DATABASE [EconomicManagementDB] SET DB_CHAINING OFF 
+GO
+ALTER DATABASE [EconomicManagementDB] SET FILESTREAM( NON_TRANSACTED_ACCESS = OFF ) 
+GO
+ALTER DATABASE [EconomicManagementDB] SET TARGET_RECOVERY_TIME = 60 SECONDS 
+GO
+ALTER DATABASE [EconomicManagementDB] SET DELAYED_DURABILITY = DISABLED 
+GO
+ALTER DATABASE [EconomicManagementDB] SET ACCELERATED_DATABASE_RECOVERY = OFF  
+GO
+ALTER DATABASE [EconomicManagementDB] SET QUERY_STORE = OFF
+GO
+USE [EconomicManagementDB]
+GO
+/****** Object:  Table [dbo].[Accounts]    Script Date: 3/04/2022 11:42:30 a. m. ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Accounts](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[Name] [nvarchar](50) NOT NULL,
+	[AccountTypeId] [int] NOT NULL,
+	[Balance] [decimal](18, 2) NOT NULL,
+	[Description] [nvarchar](1000) NULL,
+	[DbStatus] [bit] NOT NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[AccountTypes]    Script Date: 3/04/2022 11:42:30 a. m. ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[AccountTypes](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[Name] [nvarchar](50) NOT NULL,
+	[UserId] [int] NOT NULL,
+	[DbStatus] [bit] NOT NULL,
+	[OrderAccount] [int] NOT NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Categories]    Script Date: 3/04/2022 11:42:30 a. m. ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Categories](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[Name] [nvarchar](50) NOT NULL,
+	[OperationTypeId] [int] NOT NULL,
+	[UserId] [int] NOT NULL,
+	[DbStatus] [bit] NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[OperationTypes]    Script Date: 3/04/2022 11:42:30 a. m. ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[OperationTypes](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[Description] [nvarchar](50) NOT NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Transactions]    Script Date: 3/04/2022 11:42:30 a. m. ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Transactions](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[UserId] [int] NOT NULL,
+	[TransactionDate] [datetime] NOT NULL,
+	[Total] [decimal](18, 2) NOT NULL,
+	[Description] [nvarchar](1000) NULL,
+	[AccountId] [int] NOT NULL,
+	[CategoryId] [int] NOT NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Users]    Script Date: 3/04/2022 11:42:30 a. m. ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Users](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[Email] [nvarchar](256) NOT NULL,
+	[StandarEmail] [nvarchar](256) NOT NULL,
+	[Password] [nvarchar](max) NOT NULL,
+	[DbStatus] [bit] NOT NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+ALTER TABLE [dbo].[Accounts]  WITH CHECK ADD  CONSTRAINT [FK_AccountType] FOREIGN KEY([AccountTypeId])
+REFERENCES [dbo].[AccountTypes] ([Id])
+GO
+ALTER TABLE [dbo].[Accounts] CHECK CONSTRAINT [FK_AccountType]
+GO
+ALTER TABLE [dbo].[AccountTypes]  WITH CHECK ADD  CONSTRAINT [FK_AccountTypesUsers] FOREIGN KEY([UserId])
+REFERENCES [dbo].[Users] ([Id])
+GO
+ALTER TABLE [dbo].[AccountTypes] CHECK CONSTRAINT [FK_AccountTypesUsers]
+GO
+ALTER TABLE [dbo].[Categories]  WITH CHECK ADD  CONSTRAINT [FK_CategoriesOperations] FOREIGN KEY([OperationTypeId])
+REFERENCES [dbo].[OperationTypes] ([Id])
+GO
+ALTER TABLE [dbo].[Categories] CHECK CONSTRAINT [FK_CategoriesOperations]
+GO
+ALTER TABLE [dbo].[Transactions]  WITH CHECK ADD  CONSTRAINT [FK_TransactionsAccount] FOREIGN KEY([AccountId])
+REFERENCES [dbo].[Accounts] ([Id])
+GO
+ALTER TABLE [dbo].[Transactions] CHECK CONSTRAINT [FK_TransactionsAccount]
+GO
+ALTER TABLE [dbo].[Transactions]  WITH CHECK ADD  CONSTRAINT [FK_TransactionsCategories] FOREIGN KEY([CategoryId])
+REFERENCES [dbo].[Categories] ([Id])
+GO
+ALTER TABLE [dbo].[Transactions] CHECK CONSTRAINT [FK_TransactionsCategories]
+GO
+ALTER TABLE [dbo].[Transactions]  WITH CHECK ADD  CONSTRAINT [FK_TransactionsUsers] FOREIGN KEY([UserId])
+REFERENCES [dbo].[Users] ([Id])
+GO
+ALTER TABLE [dbo].[Transactions] CHECK CONSTRAINT [FK_TransactionsUsers]
+GO
+USE [master]
+GO
+ALTER DATABASE [EconomicManagementDB] SET  READ_WRITE 
+GO

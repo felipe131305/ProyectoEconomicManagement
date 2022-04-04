@@ -4,8 +4,9 @@
     "\\EconomicManagementAPP",
     "\\EconomicManagementAPP\\Validations",
     "\\EconomicManagementAPP\\Views",
-    "\\EconomicManagementAPP\\Views\\Shared"
+    "\\EconomicManagementAPP\\Views\\Shared",
+    "\\EconomicManagementAPP\\Views\\Transactions"
   ],
-  "SelectedNode": "\\EconomicManagementAPP\\Views\\Shared\\_Layout.cshtml",
+  "SelectedNode": "\\EconomicManagementAPP\\Views\\Transactions\\Create.cshtml",
   "PreviewInSolutionExplorer": false
 }
